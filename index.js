@@ -57,6 +57,7 @@ function auth(req, res, next) {
       } else {
         console.log(data);
         res.token = token;
+        next();
       }
     });
   } else {
@@ -65,7 +66,6 @@ function auth(req, res, next) {
       message: "ERR7: Ops, essa rota está protegida, não é possível acessá-la.",
     });
   }
-  next();
 }
 
 app.get("/games", auth, (req, res) => {
