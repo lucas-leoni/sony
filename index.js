@@ -56,7 +56,8 @@ function auth(req, res, next) {
         res.json({ message: "ERR6: Token inválido." });
       } else {
         console.log(data);
-        res.token = token;
+        req.token = token;
+        req.loggedUser = { id: data.id, email: data.email };
         next();
       }
     });
@@ -69,6 +70,7 @@ function auth(req, res, next) {
 }
 
 app.get("/games", auth, (req, res) => {
+  console.log(req.loggedUser);
   res.json(DB.games);
 });
 
